@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Anggota;
 use Illuminate\Http\Request;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
@@ -47,7 +46,7 @@ class AuthController extends Controller
 
             $user = Users::where('username', $validated['username'])->whereNull('deleted_at')->first();
             if ($user == null) {
-                return response()->json(['status' => false, 'message' => 'Akun tidak ditemukan'], 400);
+                return response()->json(['status' => false, 'message' => 'Akun tidak ditemukan, coba akun lain'], 400);
             }
             if (!Hash::check($validated['password'], $user->password)) {
                 return response()->json(['status' => false, 'message' => 'Username atau password salah'], 400);
@@ -56,10 +55,11 @@ class AuthController extends Controller
             $payload = [
                 'iat' => intval(microtime(true)),
                 'exp' => intval(microtime(true)) + (14 * 24 * 60 * 60), // 14 hari exp
-                'id' => $user->id,
-                'uname' => $user->username,
-                'role' => $user->role,
+                'userid' => $user->id,
+                'username' => $user->username,
+                'fullname' => $user->fullname
             ];
+
             $token = JWT::encode($payload, env('JWT_SECRET'), 'HS256');
             return response()->json(['status' => true, 'access_token' => $token], 200);
         } catch (\Throwable $th) {
@@ -91,7 +91,7 @@ class AuthController extends Controller
 
             $user = Users::find($decoded->uid);
 
-            $user->password = Hash::make($validated['newpassword']);;
+            $user->password = Hash::make($validated['newpassword']);
             $user->updated_by = $decoded->uname;
             $user->save();
 

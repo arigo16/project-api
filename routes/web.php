@@ -23,6 +23,10 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+$router->get('api/kelasmalamtest', 'ExampleController@kelasMalamFun');
+
+$router->get('api/testingroute', 'ExampleController@testFun'); // Testing routing
+
 $router->post('api/login', 'AuthController@login');
 
 $router->group(['middleware' => 'authmiddleware'], function () use ($router) {
