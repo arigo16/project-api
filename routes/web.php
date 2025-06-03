@@ -25,7 +25,13 @@ $router->get('/', function () use ($router) {
 
 $router->get('api/kelasmalamtest', 'ExampleController@kelasMalamFun');
 
-$router->get('api/testingroute', 'ExampleController@testFun'); // Testing routing
+$router->post('api/save-kendaraan', 'ExampleController@saveKendaraan');
+
+$router->post('api/edit-kendaraan', 'ExampleController@editKendaraan');
+
+$router->post('api/hard-delete-kendaraan', 'ExampleController@hardDeleteKendaraan');
+
+$router->post('api/soft-delete-kendaraan', 'ExampleController@softDeleteKendaraan');
 
 $router->post('api/login', 'AuthController@login');
 
