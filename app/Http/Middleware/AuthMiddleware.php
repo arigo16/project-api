@@ -28,7 +28,7 @@ class AuthMiddleware
         }else{
             try{
                 $decoded = JWT::decode($token, new Key(env('JWT_SECRET'), 'HS256'));
-                $data    = Users::find($decoded->id);
+                $data    = Users::find($decoded->userid);
                 $request->auth = $data;
                 return $next($request);
             }catch(\Throwable $th){

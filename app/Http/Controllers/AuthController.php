@@ -54,7 +54,7 @@ class AuthController extends Controller
 
             $payload = [
                 'iat' => intval(microtime(true)),
-                'exp' => intval(microtime(true)) + (14 * 24 * 60 * 60), // 14 hari exp
+                'exp' => intval(microtime(true)) + (2 * 24 * 60 * 60), // 2 hari exp
                 'userid' => $user->id,
                 'username' => $user->username,
                 'fullname' => $user->fullname

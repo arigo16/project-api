@@ -23,8 +23,6 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('api/kelasmalamtest', 'ExampleController@kelasMalamFun');
-
 $router->post('api/save-kendaraan', 'ExampleController@saveKendaraan');
 
 $router->post('api/edit-kendaraan', 'ExampleController@editKendaraan');
@@ -42,4 +40,6 @@ $router->group(['middleware' => 'authmiddleware'], function () use ($router) {
     $router->post('api/save-user', 'UserController@SaveUser');
     $router->post('api/edit-user', 'UserController@EditUser');
     $router->post('api/delete-user', 'UserController@DeleteUser');
+
+    $router->get('api/kelasmalamtest', 'ExampleController@kelasMalamFun');
 });
